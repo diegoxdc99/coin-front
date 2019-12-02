@@ -1,1 +1,19 @@
 <p>exchange works!</p>
+<div class="form">
+    <form [formGroup]="exchangeForm" (ngSubmit)="submit()">
+      <input type="text" formControlName="amount" autofocus>
+      <select formControlName="from">
+        <option *ngFor="let option of options" value={{option.value}}>
+          {{option.value}} - {{option.label}}
+        </option>
+      </select>
+      <img src="assets/images/exchange.png" (click)="change()">
+      <select formControlName="to">
+        <option *ngFor="let option of options" value={{option.value}}>
+          {{option.value}} - {{option.label}}
+        </option>
+      </select>
+      <input *ngIf="!result" type="submit" value="CONVERTIR">
+      <input class="result" *ngIf="result" type="text" disabled [readOnly]="true" [cleave]="{ prefix: '$', numeral: true, numeralThousandsGroupStyle: 'thousand'}" value="{{result}}">
+      <p *ngIf="result" (click)="reset()">Nuevo cambio</p>
+    </form>

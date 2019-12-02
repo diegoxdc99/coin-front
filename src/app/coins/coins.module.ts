@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 import { CoinsRoutingModule } from './coins-routing.module';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ListCoinsComponent } from './components/list-coins/list-coins.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [ExchangeComponent, ListCoinsComponent],
   imports: [
     CommonModule,
-    CoinsRoutingModule
+    CoinsRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class CoinsModule { }
