@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CurrencyInput } from '../../../model/CurrencyInput';
+import { CurrencyService } from 'src/app/core/services/currency.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+const mapKeyValue: any = item => {
+  const info = Object.entries(item)[0];
+  return { key: info[0], value: info[1] };
+};
 
 @Component({
   selector: 'app-exchange',
@@ -10,6 +18,8 @@ import { CurrencyInput } from '../../../model/CurrencyInput';
 export class ExchangeComponent implements OnInit {
   exchangeForm: FormGroup;
   currencies: Array<CurrencyInput>;
+  fiat$: Observable<any>;
+  digital$: Observable<any>;
 
   toQuantity: number;
 
@@ -27,20 +37,15 @@ export class ExchangeComponent implements OnInit {
   };
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private currencyService: CurrencyService
   ) {
+    this.toQuantity = null;
     this.buildForm();
-    this.currencies = [
-      {
-        label: 'peso colombiano',
-        value: 'COP'
-      },
-      {
-        label: 'bitcoin',
-        value: 'BTC'
-      }
-    ];
-    this.toQuantity = 5000;
+  }
+
+  ngOnInit() {
+    this.getInputValues();
   }
 
   buildForm() {
@@ -51,13 +56,36 @@ export class ExchangeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  getInputValues() {
+    this.fiat$ = this.currencyService.getFiat()
+      .pipe(map(fiatResponse => {
+        const input = fiatResponse.fiat_currencies.map(mapKeyValue);
+        return input;
+      }));
+    this.digital$ = this.currencyService.getDigital()
+      .pipe(map(digitalResponse => {
+        const input = digitalResponse.digital_currencies.map(mapKeyValue);
+        return input;
+      }));
   }
 
   submit() {
     if (this.exchangeForm.valid) {
-      alert('valido');
+      this.currencyService.convertCoin(
+        this.exchangeForm.value.fromQuantity,
+        this.exchangeForm.value.from,
+        this.exchangeForm.value.to
+      ).subscribe(response => {
+        this.toQuantity = response.to_quantity;
+      });
     }
   }
 
+  change() {
+    const from = this.exchangeForm.value.from;
+    const to = this.exchangeForm.value.to;
+
+    this.exchangeForm.controls.from.patchValue(to);
+    this.exchangeForm.controls.to.patchValue(from);
+  }
 }

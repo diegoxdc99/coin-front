@@ -1,4 +1,3 @@
-<p>exchange works!</p>
 <div class="form">
     <form [formGroup]="exchangeForm" (ngSubmit)="submit()">
         <input type="text" formControlName="fromQuantity" autofocus>
@@ -9,8 +8,11 @@
             </div>
         </div>
         <select formControlName="from">
-            <option *ngFor="let currency of currencies" [value]=currency.value>
-                {{currency.value}} - {{currency.label}}
+            <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+                {{fiat.key}} - {{fiat.value}}
+            </option>
+            <option *ngFor="let digital of digital$ | async" [value]="digital.key">
+                {{digital.key}} - {{digital.value}}
             </option>
         </select>
         <div *ngFor="let validation of validationMessages.from">
@@ -21,8 +23,11 @@
         </div>
 
         <select formControlName="to" placeholder="to">
-            <option *ngFor="let currency of currencies" [value]="currency.value">
-                {{currency.value}} - {{currency.label}}
+            <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+                {{fiat.key}} - {{fiat.value}}
+            </option>
+            <option *ngFor="let digital of digital$ | async" [value]="digital.key">
+                {{digital.key}} - {{digital.value}}
             </option>
         </select>
         <div *ngFor="let validation of validationMessages.to">
@@ -31,6 +36,8 @@
                 {{validation.message}}
             </div>
         </div>
+        <input type="button" (click)="change()" value="cambiar">
         <input type="submit" [disabled]="!exchangeForm.valid" value="CONVERTIR">
         <input class="result" type="text" disabled readOnly="true" [value]="toQuantity">
     </form>
+</div>
