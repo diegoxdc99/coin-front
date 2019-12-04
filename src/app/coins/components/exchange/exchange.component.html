@@ -22,8 +22,8 @@
     </div>
 
     <div class="exchange_field">
-      <label class="exchange_field-select" for="styledSelect1">
-        <select formControlName="from">
+      <label class="exchange_field-select" for="from">
+        <select formControlName="from" id="from" (change)="submit()">
           <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
             {{ fiat.key }} - {{ fiat.value }}
           </option>
@@ -48,14 +48,21 @@
       </div>
     </div>
 
-    <select formControlName="to" placeholder="to">
-      <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
-        {{ fiat.key }} - {{ fiat.value }}
-      </option>
-      <option *ngFor="let digital of digital$ | async" [value]="digital.key">
-        {{ digital.key }} - {{ digital.value }}
-      </option>
-    </select>
+    <div class="exchange_field">
+      <label class="exchange_field-select" for="from">
+        <select formControlName="to" placeholder="to" (change)="submit()">
+          <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+            {{ fiat.key }} - {{ fiat.value }}
+          </option>
+          <option
+            *ngFor="let digital of digital$ | async"
+            [value]="digital.key"
+          >
+            {{ digital.key }} - {{ digital.value }}
+          </option>
+        </select>
+      </label>
+    </div>
     <div *ngFor="let validation of validationMessages.to">
       <div
         class="error-message"
@@ -68,7 +75,6 @@
       </div>
     </div>
     <input type="button" (click)="change()" value="cambiar" />
-    <input type="submit" [disabled]="!exchangeForm.valid" value="CONVERTIR" />
     <div class="exchange_field">
       <input
         class="exchange_field-input"
