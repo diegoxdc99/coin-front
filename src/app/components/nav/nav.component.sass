@@ -1,16 +1,29 @@
+@import './../../variables'
+
 .nav
-    display: flex
-    flex-flow: row wrap
-    justify-content: space-around
-    border-bottom: 1px solid #EEEEEE
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-around
+  border-bottom: 1px solid $border-table
 
-    &_tab
-        padding: 50px 0px 10px 0px
-        flex-basis: 50%
-        text-align: center
-        color: blue
-        text-decoration: none
-        font-weight: bold
+  &_tab
+    padding: 20px 0px 10px 0px
+    flex-basis: 100%
+    text-align: center
+    color: $text-tabs
+    text-decoration: none
+    font-weight: bold
 
-        &-active
-            border-bottom: 3px solid #0076FF
+    @media only screen and (min-width: $break-medium)
+      flex-basis: 50%
+      padding: 50px 0px 10px 0px
+
+    &-active
+      border-left: 5px solid $acent-blue
+      border-right: 5px solid $acent-blue
+      color: $acent-blue
+
+      @media only screen and (min-width: $break-medium)
+        border-bottom: 5px solid $acent-blue
+        border-left: none
+        border-right: none

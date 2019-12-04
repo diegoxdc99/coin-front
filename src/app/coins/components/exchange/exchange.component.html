@@ -1,43 +1,78 @@
-<div class="form">
-    <form [formGroup]="exchangeForm" (ngSubmit)="submit()">
-        <input type="text" formControlName="fromQuantity" autofocus>
-        <div *ngFor="let validation of validationMessages.fromQuantity">
-            <div class="error-message"
-                *ngIf="exchangeForm.get('fromQuantity').hasError(validation.type) && (exchangeForm.get('fromQuantity').dirty || exchangeForm.get('fromQuantity').touched)">
-                {{validation.message}}
-            </div>
+<div>
+  <form class="exchange" [formGroup]="exchangeForm" (ngSubmit)="submit()">
+    <div class="exchange_field">
+      <input
+        class="exchange_field-input"
+        type="text"
+        formControlName="fromQuantity"
+        autofocus
+      />
+      <div *ngFor="let validation of validationMessages.fromQuantity">
+        <div
+          class="error-message"
+          *ngIf="
+            exchangeForm.get('fromQuantity').hasError(validation.type) &&
+            (exchangeForm.get('fromQuantity').dirty ||
+              exchangeForm.get('fromQuantity').touched)
+          "
+        >
+          {{ validation.message }}
         </div>
-        <select formControlName="from">
-            <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
-                {{fiat.key}} - {{fiat.value}}
-            </option>
-            <option *ngFor="let digital of digital$ | async" [value]="digital.key">
-                {{digital.key}} - {{digital.value}}
-            </option>
-        </select>
-        <div *ngFor="let validation of validationMessages.from">
-            <div class="error-message"
-                *ngIf="exchangeForm.get('from').hasError(validation.type) && (exchangeForm.get('from').dirty || exchangeForm.get('from').touched)">
-                {{validation.message}}
-            </div>
-        </div>
+      </div>
+    </div>
 
-        <select formControlName="to" placeholder="to">
-            <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
-                {{fiat.key}} - {{fiat.value}}
-            </option>
-            <option *ngFor="let digital of digital$ | async" [value]="digital.key">
-                {{digital.key}} - {{digital.value}}
-            </option>
-        </select>
-        <div *ngFor="let validation of validationMessages.to">
-            <div class="error-message"
-                *ngIf="exchangeForm.get('to').hasError(validation.type) && (exchangeForm.get('to').dirty || exchangeForm.get('to').touched)">
-                {{validation.message}}
-            </div>
+    <div class="exchange_field">
+      <select formControlName="from" class="exchange_field-select">
+        <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+          {{ fiat.key }} - {{ fiat.value }}
+        </option>
+        <option *ngFor="let digital of digital$ | async" [value]="digital.key">
+          {{ digital.key }} - {{ digital.value }}
+        </option>
+      </select>
+      <span class="dropdown-arrow">ss</span>
+      <div *ngFor="let validation of validationMessages.from">
+        <div
+          class="error-message"
+          *ngIf="
+            exchangeForm.get('from').hasError(validation.type) &&
+            (exchangeForm.get('from').dirty || exchangeForm.get('from').touched)
+          "
+        >
+          {{ validation.message }}
         </div>
-        <input type="button" (click)="change()" value="cambiar">
-        <input type="submit" [disabled]="!exchangeForm.valid" value="CONVERTIR">
-        <input class="result" type="text" disabled readOnly="true" [value]="toQuantity">
-    </form>
+      </div>
+    </div>
+
+    <select formControlName="to" placeholder="to">
+      <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+        {{ fiat.key }} - {{ fiat.value }}
+      </option>
+      <option *ngFor="let digital of digital$ | async" [value]="digital.key">
+        {{ digital.key }} - {{ digital.value }}
+      </option>
+    </select>
+    <div *ngFor="let validation of validationMessages.to">
+      <div
+        class="error-message"
+        *ngIf="
+          exchangeForm.get('to').hasError(validation.type) &&
+          (exchangeForm.get('to').dirty || exchangeForm.get('to').touched)
+        "
+      >
+        {{ validation.message }}
+      </div>
+    </div>
+    <input type="button" (click)="change()" value="cambiar" />
+    <input type="submit" [disabled]="!exchangeForm.valid" value="CONVERTIR" />
+    <div class="exchange_field">
+      <input
+        class="exchange_field-input"
+        type="text"
+        disabled
+        readOnly="true"
+        [value]="toQuantity"
+      />
+    </div>
+  </form>
 </div>
