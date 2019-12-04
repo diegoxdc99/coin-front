@@ -22,15 +22,19 @@
     </div>
 
     <div class="exchange_field">
-      <select formControlName="from" class="exchange_field-select">
-        <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
-          {{ fiat.key }} - {{ fiat.value }}
-        </option>
-        <option *ngFor="let digital of digital$ | async" [value]="digital.key">
-          {{ digital.key }} - {{ digital.value }}
-        </option>
-      </select>
-      <span class="dropdown-arrow">ss</span>
+      <label class="exchange_field-select" for="styledSelect1">
+        <select formControlName="from">
+          <option *ngFor="let fiat of fiat$ | async" [value]="fiat.key">
+            {{ fiat.key }} - {{ fiat.value }}
+          </option>
+          <option
+            *ngFor="let digital of digital$ | async"
+            [value]="digital.key"
+          >
+            {{ digital.key }} - {{ digital.value }}
+          </option>
+        </select>
+      </label>
       <div *ngFor="let validation of validationMessages.from">
         <div
           class="error-message"

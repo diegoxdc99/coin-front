@@ -20,19 +20,33 @@
       padding: 10px
       border-radius: 17px
       font-size: 1.0em
+      text-align: center
 
     &-select
-      position: relative
-      font-family: Arial
-      flex-basis: 100%
+      border: 1px solid #949494
       margin: 0 30%
+      border-radius: 17px
+      position: relative
 
       select
-        display: none
+        border: none
+        outline: none
+        background: transparent
+        appearance: none
+        text-align: center
+        font-size: 1.0em
+        width: 100%
+        padding: 10px
+        z-index: -10
 
-.dropdown-arrow
-  position: absolute
-  color: inherit
-  right: 0
-  bottom: 0
-  cursor: pointer
+      &::after
+        position: absolute
+        right: 0
+        top: 0
+        width: 50px
+        height: 100%
+        line-height: 2.5em
+        content: '>'
+        text-align: center
+        font-size: 1em
+        z-index: 11
