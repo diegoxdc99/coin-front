@@ -28,6 +28,16 @@ export class ListCoinsComponent implements OnInit {
         name: 'USD',
         price: 14,
         isCryptocurrency: false
+      },
+      {
+        name: 'asdasdasf asdasda asfasd asdasdasdas',
+        price: 14,
+        isCryptocurrency: false
+      },
+      {
+        name: 'us',
+        price: 14,
+        isCryptocurrency: false
       }
     ];
   }
