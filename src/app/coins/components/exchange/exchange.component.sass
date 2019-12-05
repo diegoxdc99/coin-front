@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap')
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap')
 @import './../../../variables'
 
 .exchange
@@ -5,6 +7,33 @@
   flex-wrap: wrap
   justify-content: center
   border-bottom: 1px solid $border-table
+  font-family: 'Roboto', sans-serif
+
+  &_header
+    margin-top: 1em
+    font-family: 'Roboto', sans-serif
+    text-align: center
+
+    &-title
+      font-size: 2em
+      content: ''
+
+    &-subtitle
+      color: $exchange-subtitle
+      margin: 10px 0
+      font-size: 1.5em
+      font-weight: normal
+
+  &_mix
+    color: $acent-blue
+    font-size: 1.3em
+    cursor: pointer
+
+    @media only screen and (min-width: $break-large)
+      position: absolute
+      left: 70%
+      top: 309px
+      display: inline
 
   &_field
     display: flex
@@ -14,20 +43,26 @@
     margin: 10px 0
 
     &-input
-      border: 1px solid #949494
+      border: 1px solid $input-border
       flex-basis: 100%
       margin: 0 30%
       padding: 10px
       border-radius: 17px
       font-size: 1.0em
       text-align: center
+      color: $input-border
+      letter-spacing: 0.1em
+      font-weight: bold
+      font-family: 'Ubuntu', sans-serif
 
     &-select
-      border: 1px solid #949494
+      border: 1px solid $input-border
       flex-basis: 100%
       margin: 0 30%
       border-radius: 17px
       position: relative
+      letter-spacing: 0.1em
+      min-width: 296.667px
 
       select
         border: none
@@ -39,6 +74,9 @@
         width: 100%
         padding: 10px
         z-index: -10
+        color: $input-text
+        font-weight: bold
+        font-family: 'Ubuntu', sans-serif
 
       &::after
         position: absolute
@@ -53,3 +91,4 @@
         text-align: center
         font-size: 1em
         z-index: 11
+        color: $input-text

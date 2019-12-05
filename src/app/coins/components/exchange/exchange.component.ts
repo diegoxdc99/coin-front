@@ -29,11 +29,9 @@ export class ExchangeComponent implements OnInit {
       { type: 'min', message: 'La cantidad a convertir debe ser mayor a 0' }
     ],
     from: [
-      { type: 'required', message: 'La criptomoneda/moneda es requerida'},
+      { type: 'required', message: 'La criptomoneda/moneda es requerida' }
     ],
-    to: [
-      { type: 'required', message: 'La criptomoneda/moneda es requerida'},
-    ]
+    to: [{ type: 'required', message: 'La criptomoneda/moneda es requerida' }]
   };
 
   constructor(
@@ -57,27 +55,31 @@ export class ExchangeComponent implements OnInit {
   }
 
   getInputValues() {
-    this.fiat$ = this.currencyService.getFiat()
-      .pipe(map(fiatResponse => {
+    this.fiat$ = this.currencyService.getFiat().pipe(
+      map(fiatResponse => {
         const input = fiatResponse.fiat_currencies.map(mapKeyValue);
         return input;
-      }));
-    this.digital$ = this.currencyService.getDigital()
-      .pipe(map(digitalResponse => {
+      })
+    );
+    this.digital$ = this.currencyService.getDigital().pipe(
+      map(digitalResponse => {
         const input = digitalResponse.digital_currencies.map(mapKeyValue);
         return input;
-      }));
+      })
+    );
   }
 
   submit() {
     if (this.exchangeForm.valid) {
-      this.currencyService.convertCoin(
-        this.exchangeForm.value.fromQuantity,
-        this.exchangeForm.value.from,
-        this.exchangeForm.value.to
-      ).subscribe(response => {
-        this.toQuantity = response.to_quantity;
-      });
+      this.currencyService
+        .convertCoin(
+          this.exchangeForm.value.fromQuantity,
+          this.exchangeForm.value.from,
+          this.exchangeForm.value.to
+        )
+        .subscribe(response => {
+          this.toQuantity = response.to_quantity;
+        });
     }
   }
 
@@ -87,5 +89,7 @@ export class ExchangeComponent implements OnInit {
 
     this.exchangeForm.controls.from.patchValue(to);
     this.exchangeForm.controls.to.patchValue(from);
+
+    this.submit();
   }
 }

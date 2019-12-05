@@ -1,10 +1,15 @@
 <div>
   <form class="exchange" [formGroup]="exchangeForm" (ngSubmit)="submit()">
+    <div class="exchange_header">
+      <div class="exchange_header-title">Realizar cambio</div>
+      <div class="exchange_header-subtitle">Seleccione las monedas</div>
+    </div>
     <div class="exchange_field">
       <input
         class="exchange_field-input"
         type="text"
         formControlName="fromQuantity"
+        (change)="submit()"
         autofocus
       />
       <div *ngFor="let validation of validationMessages.fromQuantity">
@@ -47,7 +52,7 @@
         </div>
       </div>
     </div>
-
+    <i class="fas fa-sync exchange_mix" (click)="change()"></i>
     <div class="exchange_field">
       <label class="exchange_field-select" for="from">
         <select formControlName="to" placeholder="to" (change)="submit()">
@@ -74,7 +79,7 @@
         {{ validation.message }}
       </div>
     </div>
-    <input type="button" (click)="change()" value="cambiar" />
+
     <div class="exchange_field">
       <input
         class="exchange_field-input"
