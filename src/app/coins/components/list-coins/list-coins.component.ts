@@ -10,8 +10,11 @@ import { CurrencyService } from 'src/app/core/services/currency.service';
 })
 export class ListCoinsComponent implements OnInit {
 
-  displayCoins: ItemCoin[];
+  displayCoins: ItemCoin[] = [];
   coins: ItemCoin[];
+  page = 0;
+  size = 20;
+  mapCoins = ({ id_currency, name, price, crypto }) => ({ id: id_currency, name, price, isCryptocurrency: crypto === '1' });
 
   constructor(
     private router: Router,
@@ -25,9 +28,9 @@ export class ListCoinsComponent implements OnInit {
   getCoins() {
     return this.currecyService.GetCoins().subscribe((data) => {
       if (data.success) {
-        const coins = data.prices.map(({ id_currency, name, price, crypto }) => ({ id: id_currency, name, price, crypto: crypto === '1' }));
+        const coins = data.prices.map(this.mapCoins);
         this.coins = coins;
-        this.displayCoins = coins.slice(0, 20);
+        this.addPage();
       }
     });
   }
@@ -36,5 +39,15 @@ export class ListCoinsComponent implements OnInit {
   redirectChange(coin) {
     this.router.navigateByUrl('/coin/exchange', { state: { data: coin.id } });
   }
+
+  onScroll() {
+    this.addPage();
+  }
+
+  addPage() {
+    this.displayCoins = this.displayCoins.concat(this.coins.slice(this.page * this.size, (this.page + 1) * this.size));
+    this.page++;
+  }
+
 
 }

@@ -5,7 +5,14 @@
     <div class="item"><span>Criptomoneda</span></div>
     <div class="item"><span>Convertir</span></div>
   </div>
-  <div *ngIf="displayCoins.length > 0" class="list-coins">
+  <div
+    *ngIf="displayCoins && displayCoins.length > 0"
+    class="list-coins"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+  >
     <div class="coin" *ngFor="let coin of displayCoins">
       <div class="item">{{ coin.name }}</div>
       <div class="item price">{{ coin.price | currency }}</div>

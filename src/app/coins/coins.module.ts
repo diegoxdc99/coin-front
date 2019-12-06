@@ -6,6 +6,8 @@ import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ListCoinsComponent } from './components/list-coins/list-coins.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 
 @NgModule({
@@ -14,7 +16,8 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     CoinsRoutingModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    InfiniteScrollModule
   ]
 })
 export class CoinsModule { }

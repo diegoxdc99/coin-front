@@ -29,44 +29,47 @@
       margin: 20px
 
 .list-coins
+  height: 70vh
   overflow-y: auto
   font-size: 0.8em
+  margin-bottom: 30px
+
   @media only screen and (min-width: $break-large)
     font-size: 1em
 
-    .item
-      flex: 1
-    .coin
+  .item
+    flex: 1
+
+    .change
+      cursor: pointer
+  .coin
+    display: flex
+    border: 1px solid rgba(0, 0, 0, 0.14)
+    margin-bottom: 1.5em
+
+    div
+      margin: 10px 3px
       display: flex
-      border: 1px solid rgba(0, 0, 0, 0.14)
-      margin-bottom: 1.5em
-
-      .change
-        cursor: pointer
-
-      div
-        margin: 10px 3px
-        display: flex
-        align-items: center
-
-        @media only screen and (min-width: $break-large)
-          margin: 8px 20px
-    .price
-      color: $list-coin-blue
-      font-weight: bold
-    .crypto
       align-items: center
-      display: flex
-      color: $is-crypto-red
-      &:before
-        content: " "
-        display: block
-        margin: 8px
-        height: 13px
-        width: 13px
-        border-radius: 50%
-        background-color: $is-crypto-red
-    .is-crypto
-      color: $is-crypto-green
-      &:before
-        background-color: $is-crypto-green
+
+      @media only screen and (min-width: $break-large)
+        margin: 8px 20px
+  .price
+    color: $list-coin-blue
+    font-weight: bold
+  .crypto
+    align-items: center
+    display: flex
+    color: $is-crypto-red
+    &:before
+      content: " "
+      display: block
+      margin: 8px
+      height: 13px
+      width: 13px
+      border-radius: 50%
+      background-color: $is-crypto-red
+  .is-crypto
+    color: $is-crypto-green
+    &:before
+      background-color: $is-crypto-green
