@@ -44,6 +44,14 @@ export class ExchangeComponent implements OnInit {
 
   ngOnInit() {
     this.getInputValues();
+    this.setInitialValues();
+  }
+
+  setInitialValues() {
+    this.exchangeForm.controls.to.patchValue('USD');
+    window.history.state.data ?
+      this.exchangeForm.controls.from.patchValue(window.history.state.data) :
+      this.exchangeForm.controls.from.patchValue('BTC');
   }
 
   buildForm() {

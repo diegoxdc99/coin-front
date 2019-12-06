@@ -29,7 +29,11 @@ export class CurrencyService {
     return this.httpClient.get(`${this.apiURL}/fiat-currency-symbols`, this.httpOptions);
   }
 
-  convertCoin(fromQuantity, from, to): Observable<any> {
+  convertCoin(fromQuantity: number, from: string, to: string): Observable<any> {
     return this.httpClient.get(`${this.apiURL}/convert?qty=${fromQuantity}&from=${from}&to=${to}`, this.httpOptions);
+  }
+
+  GetCoins(): Observable<any> {
+    return this.httpClient.get(`${this.apiURL}/prices?coin=btc`, this.httpOptions);
   }
 }

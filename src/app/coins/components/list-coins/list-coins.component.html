@@ -5,18 +5,23 @@
     <div class="item"><span>Criptomoneda</span></div>
     <div class="item"><span>Convertir</span></div>
   </div>
-  <div
-    *ngIf="displayCoins.length > 0"
-    class="list-coins"
-  >
+  <div *ngIf="displayCoins.length > 0" class="list-coins">
     <div class="coin" *ngFor="let coin of displayCoins">
       <div class="item">{{ coin.name }}</div>
       <div class="item price">{{ coin.price | currency }}</div>
-      <div class="item crypto" [ngClass]="{ 'is-crypto': coin.isCryptocurrency }">
+      <div
+        class="item crypto"
+        [ngClass]="{ 'is-crypto': coin.isCryptocurrency }"
+      >
         {{ coin.isCryptocurrency ? "SI" : "NO" }}
       </div>
       <div class="item">
-        <button>Cambiar</button>
+        <img
+          class="change"
+          src="../../../../assets/images/change coin.png"
+          alt=""
+          (click)="redirectChange(coin)"
+        />
       </div>
     </div>
   </div>
