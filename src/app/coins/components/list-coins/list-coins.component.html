@@ -1,9 +1,9 @@
 <div class="container-list">
   <div class="list-header">
-    <div class="item"><span>Nombre</span></div>
-    <div class="item"><span>Precio</span></div>
-    <div class="item"><span>Criptomoneda</span></div>
-    <div class="item"><span>Convertir</span></div>
+    <div class="item"><span>{{ 'coins.list.name' | translate}} </span></div>
+    <div class="item"><span>{{ 'coins.list.price' | translate}} </span></div>
+    <div class="item"><span>{{ 'coins.list.cryptocurrency' | translate}} </span></div>
+    <div class="item"><span>{{ 'coins.list.convert' | translate}}</span></div>
   </div>
   <div
     *ngIf="displayCoins && displayCoins.length > 0"

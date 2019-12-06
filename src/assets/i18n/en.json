@@ -1,0 +1,18 @@
+{
+    "tabs": {
+        "makeOrder": "MAKE AN ORDER",
+        "coinListing": "COIN LISTING"
+    },
+    "coins": {
+        "list": {
+            "name": "Name",
+            "price": "Price",
+            "cryptocurrency": "Cryptocurrency",
+            "convert": "convert"
+        },
+        "exchange": {
+            "makeChange": "Make change",
+            "selectCoins": "Select coins"
+        }
+    }
+}

@@ -1,8 +1,8 @@
 <div>
   <form class="exchange" [formGroup]="exchangeForm" (ngSubmit)="submit()">
     <div class="exchange_header">
-      <div class="exchange_header-title">Realizar cambio</div>
-      <div class="exchange_header-subtitle">Seleccione las monedas</div>
+      <div class="exchange_header-title">{{ 'coins.exchange.makeChange' | translate }}</div>
+      <div class="exchange_header-subtitle">{{ 'coins.exchange.selectCoins' | translate }}</div>
     </div>
     <div class="exchange_field">
       <input

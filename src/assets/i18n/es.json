@@ -1,0 +1,18 @@
+{
+    "tabs": {
+        "makeOrder": "REALIZAR CAMBIO",
+        "coinListing": "LISTADO DE MONEDAS"
+    },
+    "coins": {
+        "list": {
+            "name": "Nombre",
+            "price": "Precio",
+            "cryptocurrency": "Cryptomoneda",
+            "convert": "Convertir"
+        },
+        "exchange": {
+            "makeChange": "Realizar cambio",
+            "selectCoins": "Seleccione las monedas"
+        }
+    }
+}
