@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CurrencyInput } from '../../../model/CurrencyInput';
 import { CurrencyService } from 'src/app/core/services/currency.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 const mapKeyValue: any = item => {
   const info = Object.entries(item)[0];
@@ -20,23 +21,18 @@ export class ExchangeComponent implements OnInit {
   currencies: Array<CurrencyInput>;
   fiat$: Observable<any>;
   digital$: Observable<any>;
+  messageError = '';
 
   toQuantity: number;
 
-  validationMessages = {
-    fromQuantity: [
-      { type: 'required', message: 'La cantidad a convertir es requerida.' },
-      { type: 'min', message: 'La cantidad a convertir debe ser mayor a 0' }
-    ],
-    from: [
-      { type: 'required', message: 'La criptomoneda/moneda es requerida' }
-    ],
-    to: [{ type: 'required', message: 'La criptomoneda/moneda es requerida' }]
-  };
+  validationMessages: any;
+  canNotExchange: string;
+  canNotLoadCurrencies: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private translateService: TranslateService
   ) {
     this.toQuantity = null;
     this.buildForm();
@@ -45,6 +41,31 @@ export class ExchangeComponent implements OnInit {
   ngOnInit() {
     this.getInputValues();
     this.setInitialValues();
+    this.loadLabelsErrors();
+  }
+
+  loadLabelsErrors() {
+    this.translateService.get([
+      'errors.exchange.quantityRequired',
+      'errors.exchange.quantityNegative',
+      'errors.exchange.fromRequired',
+      'errors.exchange.toRequired',
+      'errors.exchange.canNotExchange',
+      'errors.exchange.canNotLoadCurrencies'
+    ]).subscribe(data => {
+      this.canNotExchange = data['errors.exchange.canNotExchange'];
+      this.canNotLoadCurrencies = data['errors.exchange.canNotLoadCurrencies'];
+      this.validationMessages =  {
+        fromQuantity: [
+          { type: 'required', message: data['errors.exchange.fromRequired'] },
+          { type: 'min', message: data['errors.exchange.quantityNegative'] }
+        ],
+        from: [
+          { type: 'required', message: data['errors.exchange.fromRequired'] }
+        ],
+        to: [{ type: 'required', message: data['errors.exchange.toRequired'] }]
+      };
+    });
   }
 
   setInitialValues() {
@@ -63,10 +84,17 @@ export class ExchangeComponent implements OnInit {
   }
 
   getInputValues() {
+    this.clearError();
     this.fiat$ = this.currencyService.getFiat().pipe(
       map(fiatResponse => {
         const input = fiatResponse.fiat_currencies.map(mapKeyValue);
         return input;
+      }),
+      catchError(_ => {
+        this.messageError = this.canNotLoadCurrencies;
+        this.exchangeForm.controls.from.patchValue(null);
+        this.exchangeForm.controls.to.patchValue(null);
+        return throwError(this.canNotLoadCurrencies);
       })
     );
     this.digital$ = this.currencyService.getDigital().pipe(
@@ -78,6 +106,7 @@ export class ExchangeComponent implements OnInit {
   }
 
   submit() {
+    this.clearError();
     if (this.exchangeForm.valid) {
       this.currencyService
         .convertCoin(
@@ -87,7 +116,7 @@ export class ExchangeComponent implements OnInit {
         )
         .subscribe(response => {
           this.toQuantity = response.to_quantity;
-        });
+        }, (error) => this.showError(this.canNotExchange));
     }
   }
 
@@ -99,5 +128,14 @@ export class ExchangeComponent implements OnInit {
     this.exchangeForm.controls.to.patchValue(from);
 
     this.submit();
+  }
+
+  showError(error: string) {
+    this.messageError = error;
+    console.log(error);
+  }
+
+  clearError() {
+    this.messageError = '';
   }
 }

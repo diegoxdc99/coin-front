@@ -45,9 +45,9 @@
     &-input
       border: 1px solid $input-border
       flex-basis: 100%
-      margin: 0 30%
-      padding: 10px
-      border-radius: 17px
+      margin: 0 36%
+      padding: 15px
+      border-radius: 20px
       font-size: 1.0em
       text-align: center
       color: $input-border
@@ -55,14 +55,18 @@
       font-weight: bold
       font-family: 'Ubuntu', sans-serif
 
+      &:focus
+        outline: none
+        box-shadow: 0 0 3pt 2pt $acent-blue
+
     &-select
       border: 1px solid $input-border
       flex-basis: 100%
-      margin: 0 30%
-      border-radius: 17px
+      margin: 0 36%
+      border-radius: 20px
       position: relative
       letter-spacing: 0.1em
-      min-width: 296.667px
+      min-width: 240px
 
       select
         border: none
@@ -72,11 +76,15 @@
         text-align: center
         font-size: 1.0em
         width: 100%
-        padding: 10px
+        padding: 15px
         z-index: -10
         color: $input-text
         font-weight: bold
         font-family: 'Ubuntu', sans-serif
+        &:focus
+          border-radius: 17px
+          outline: none
+          box-shadow: 0 0 3pt 2pt $acent-blue
 
       &::after
         position: absolute

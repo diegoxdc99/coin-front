@@ -12,7 +12,7 @@
         (change)="submit()"
         autofocus
       />
-      <div *ngFor="let validation of validationMessages.fromQuantity">
+      <div class="error-wrapper" *ngFor="let validation of validationMessages.fromQuantity">
         <div
           class="error-message"
           *ngIf="
@@ -40,7 +40,7 @@
           </option>
         </select>
       </label>
-      <div *ngFor="let validation of validationMessages.from">
+      <div class="error-wrapper" *ngFor="let validation of validationMessages.from">
         <div
           class="error-message"
           *ngIf="
@@ -68,7 +68,7 @@
         </select>
       </label>
     </div>
-    <div *ngFor="let validation of validationMessages.to">
+    <div class="error-wrapper" *ngFor="let validation of validationMessages.to">
       <div
         class="error-message"
         *ngIf="
@@ -89,5 +89,15 @@
         [value]="toQuantity"
       />
     </div>
+
+    <div class="error-wrapper">
+        <div class="error-message" *ngIf="messageError">
+          {{ messageError }}
+        </div>
+
+        <div class="error-message" *ngIf="messageError">
+            {{ messageError }}
+          </div>
+      </div>
   </form>
 </div>

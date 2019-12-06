@@ -14,5 +14,15 @@
             "makeChange": "Realizar cambio",
             "selectCoins": "Seleccione las monedas"
         }
+    },
+    "errors": {
+        "exchange": {
+            "quantityRequired": "La cantidad a convertir es requerida.",
+            "quantityNegative": "La cantidad a convertir debe ser mayor a 0",
+            "fromRequired": "La criptomoneda/moneda es requerida",
+            "toRequired": "La criptomoneda/moneda es requerida",
+            "canNotExchange": "No se pudo convertir la moneda",
+            "canNotLoadCurrencies": "No se pudieron cargar las criptomonedas"
+        }
     }
 }
